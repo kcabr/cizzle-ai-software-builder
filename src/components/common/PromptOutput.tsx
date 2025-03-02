@@ -4,6 +4,7 @@
 import { Box, Paper, TextField, Typography } from "@mui/material";
 import CopyButton from "./CopyButton";
 import TokenCounter from "./TokenCounter";
+import { codeTextStyles } from "../../utils/textStyles";
 
 interface PromptOutputProps {
   value: string;
@@ -39,7 +40,7 @@ const PromptOutput = ({
         maxRows={maxRows}
         fullWidth
         variant="outlined"
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, ...codeTextStyles }}
         InputProps={{
           readOnly,
         }}

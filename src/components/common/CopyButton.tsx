@@ -4,6 +4,7 @@
 import { ContentCopy } from '@mui/icons-material';
 import { Button, ButtonProps } from '@mui/material';
 import { copyToClipboard } from '../../utils/clipboardUtils';
+import { utilityTextStyles } from '../../utils/textStyles';
 
 interface CopyButtonProps extends Omit<ButtonProps, 'onClick'> {
   text: string;
@@ -24,6 +25,7 @@ const CopyButton = ({ text, ...buttonProps }: CopyButtonProps) => {
       color="primary"
       variant="outlined"
       size="small"
+      sx={{ ...utilityTextStyles, ...buttonProps.sx }}
       {...buttonProps}
     >
       Copy to Clipboard

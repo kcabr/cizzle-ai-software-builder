@@ -4,6 +4,7 @@
 import { Box, Paper, TextField, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import TokenCounter from './TokenCounter';
+import { textAreaStyles } from '../../utils/textStyles';
 
 interface TextInputProps {
   value: string;
@@ -47,7 +48,7 @@ const TextInput = ({
         fullWidth
         variant="outlined"
         required={required}
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, ...textAreaStyles }}
       />
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

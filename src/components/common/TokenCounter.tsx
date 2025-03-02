@@ -4,6 +4,7 @@
 import { Chip, ChipProps } from '@mui/material';
 import { useMemo } from 'react';
 import { calculateTokens } from '../../utils/promptUtils';
+import { utilityTextStyles } from '../../utils/textStyles';
 
 interface TokenCounterProps extends Omit<ChipProps, 'label'> {
   text: string;
@@ -21,6 +22,7 @@ const TokenCounter = ({ text, ...chipProps }: TokenCounterProps) => {
       color={tokenCount > 30000 ? 'error' : 'primary'}
       variant="outlined"
       size="small"
+      sx={{ ...utilityTextStyles, ...chipProps.sx }}
       {...chipProps}
     />
   );

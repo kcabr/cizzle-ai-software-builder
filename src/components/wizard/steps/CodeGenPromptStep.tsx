@@ -2,28 +2,47 @@
  * Code Generation Prompt step component
  * Displays the code generation prompt with previous outputs inserted
  */
-import { Alert, Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTemplateData } from '../../../hooks/useTemplateData';
-import { RootState } from '../../../store';
-import { setCodeGenPromptOutput, setCodeGenPromptType } from '../../../store/wizardSlice';
-import { loadPromptTemplate, replaceTokens } from '../../../utils/promptUtils';
-import PromptOutput from '../../common/PromptOutput';
-import TextInput from '../../common/TextInput';
-import { CodeGenPromptType } from '../../../types';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Box,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTemplateData } from "../../../hooks/useTemplateData";
+import { RootState } from "../../../store";
+import {
+  setCodeGenPromptOutput,
+  setCodeGenPromptType,
+} from "../../../store/wizardSlice";
+import { loadPromptTemplate, replaceTokens } from "../../../utils/promptUtils";
+import PromptOutput from "../../common/PromptOutput";
+import TextInput from "../../common/TextInput";
+import PromptInstructions from "../../common/PromptInstructions";
+import PromptHeaderWithCopy from "../../common/PromptHeaderWithCopy";
+import { CodeGenPromptType } from "../../../types";
 
 /**
  * Component for the Code Generation Prompt step
  */
 const CodeGenPromptStep = () => {
   const dispatch = useDispatch();
-  const { codeGenPromptOutput, codeGenPromptType } = useSelector((state: RootState) => state.wizard);
+  const { codeGenPromptOutput, codeGenPromptType } = useSelector(
+    (state: RootState) => state.wizard
+  );
   const templateData = useTemplateData();
-  
-  const [standardTemplate, setStandardTemplate] = useState('');
-  const [advancedTemplate, setAdvancedTemplate] = useState('');
-  const [processedTemplate, setProcessedTemplate] = useState('');
+
+  const [standardTemplate, setStandardTemplate] = useState("");
+  const [advancedTemplate, setAdvancedTemplate] = useState("");
+  const [processedTemplate, setProcessedTemplate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,16 +52,16 @@ const CodeGenPromptStep = () => {
       try {
         setLoading(true);
         const [standardResult, advancedResult] = await Promise.all([
-          loadPromptTemplate('prompt4a.md'),
-          loadPromptTemplate('prompt4b.md')
+          loadPromptTemplate("prompt4a.md"),
+          loadPromptTemplate("prompt4b.md"),
         ]);
-        
+
         setStandardTemplate(standardResult.content);
         setAdvancedTemplate(advancedResult.content);
         setError(null);
       } catch (err) {
-        console.error('Failed to load templates:', err);
-        setError('Failed to load templates. Please refresh the page.');
+        console.error("Failed to load templates:", err);
+        setError("Failed to load templates. Please refresh the page.");
       } finally {
         setLoading(false);
       }
@@ -54,12 +73,15 @@ const CodeGenPromptStep = () => {
   // Process the selected template when it changes
   useEffect(() => {
     if (standardTemplate && advancedTemplate) {
-      const template = codeGenPromptType === 'standard' ? standardTemplate : advancedTemplate;
+      const template =
+        codeGenPromptType === "standard" ? standardTemplate : advancedTemplate;
       setProcessedTemplate(replaceTokens(template, templateData));
     }
   }, [standardTemplate, advancedTemplate, codeGenPromptType, templateData]);
 
-  const handlePromptTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePromptTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     dispatch(setCodeGenPromptType(event.target.value as CodeGenPromptType));
   };
 
@@ -90,31 +112,47 @@ const CodeGenPromptStep = () => {
           <FormControlLabel
             value="standard"
             control={<Radio />}
-            label="Standard Code Generation"
+            label="Standard"
           />
           <FormControlLabel
             value="advanced"
             control={<Radio />}
-            label="Advanced XML Code Generation"
+            label="Advanced XML"
           />
         </RadioGroup>
       </FormControl>
-      
-      <PromptOutput
-        title={`Code Generation Prompt (${codeGenPromptType === 'standard' ? 'Standard' : 'Advanced XML'})`}
-        value={processedTemplate}
-        readOnly
-      />
-      
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Copy the prompt above and paste it into ChatGPT-4o Pro. Once you have the response, paste it below.
-      </Alert>
-      
+
+      <Accordion defaultExpanded={false} sx={{ mb: 2 }}>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="codegen-prompt-content"
+          id="codegen-prompt-header"
+        >
+          <PromptHeaderWithCopy
+            title={`Code Generation Prompt (${
+              codeGenPromptType === "standard" ? "Standard" : "Advanced XML"
+            })`}
+            contentToCopy={processedTemplate}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <PromptOutput
+            title={`Code Generation Prompt (${
+              codeGenPromptType === "standard" ? "Standard" : "Advanced XML"
+            })`}
+            value={processedTemplate}
+            readOnly
+          />
+        </AccordionDetails>
+      </Accordion>
+
+      <PromptInstructions />
+
       <TextInput
-        label="Code Generation Prompt Output"
+        label="Code Generation Response"
         value={codeGenPromptOutput}
         onChange={handleOutputChange}
-        placeholder="Paste the ChatGPT response here..."
+        placeholder="Paste the response here..."
         minRows={10}
         helperText="Paste the complete response from ChatGPT here."
         required={true}

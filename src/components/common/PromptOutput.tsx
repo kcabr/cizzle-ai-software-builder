@@ -1,9 +1,9 @@
 /**
  * Prompt output component with copy button and token counter
  */
-import { Box, Paper, TextField, Typography } from '@mui/material';
-import CopyButton from './CopyButton';
-import TokenCounter from './TokenCounter';
+import { Box, Paper, TextField, Typography } from "@mui/material";
+import CopyButton from "./CopyButton";
+import TokenCounter from "./TokenCounter";
 
 interface PromptOutputProps {
   value: string;
@@ -27,10 +27,10 @@ const PromptOutput = ({
 }: PromptOutputProps) => {
   return (
     <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 3 }}>
-      <Typography variant="h6" gutterBottom>
+      {/* <Typography variant="h6" gutterBottom>
         {title}
-      </Typography>
-      
+      </Typography> */}
+
       <TextField
         value={value}
         onChange={onChange ? (e) => onChange(e.target.value) : undefined}
@@ -44,8 +44,14 @@ const PromptOutput = ({
           readOnly,
         }}
       />
-      
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <CopyButton text={value} disabled={!value} />
         <TokenCounter text={value} />
       </Box>

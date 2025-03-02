@@ -18,6 +18,8 @@ import { setRequestPromptOutput } from "../../../store/wizardSlice";
 import { loadPromptTemplate, replaceTokens } from "../../../utils/promptUtils";
 import PromptOutput from "../../common/PromptOutput";
 import TextInput from "../../common/TextInput";
+import PromptInstructions from "../../common/PromptInstructions";
+import PromptHeaderWithCopy from "../../common/PromptHeaderWithCopy";
 import { ExpandMore } from "@mui/icons-material";
 
 /**
@@ -73,9 +75,16 @@ const RequestPromptStep = () => {
 
   return (
     <Box>
-      <Accordion expanded={false}>
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Typography variant="h6">Request Prompt Output</Typography>
+      <Accordion defaultExpanded={false} sx={{ mb: 2 }}>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="request-prompt-content"
+          id="request-prompt-header"
+        >
+          <PromptHeaderWithCopy 
+            title="Request Prompt Input" 
+            contentToCopy={processedTemplate} 
+          />
         </AccordionSummary>
         <AccordionDetails>
           <PromptOutput
@@ -86,13 +95,10 @@ const RequestPromptStep = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Copy the prompt above and paste it into ChatGPT-4o Pro. Once you have
-        the response, paste it below.
-      </Alert>
+      <PromptInstructions customMessage="Copy the prompt above and paste it into ChatGPT-4o. Iterate and answer the questions until you have the final output. Once you have the final output, paste it below." />
 
       <TextInput
-        label="Request Prompt Output"
+        label="Request Response"
         value={requestPromptOutput}
         onChange={handleOutputChange}
         placeholder="Paste the ChatGPT response here..."

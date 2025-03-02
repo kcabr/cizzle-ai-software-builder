@@ -2,15 +2,25 @@
  * Spec Prompt step component
  * Displays the spec prompt with the request output inserted
  */
-import { Alert, Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTemplateData } from '../../../hooks/useTemplateData';
-import { RootState } from '../../../store';
-import { setSpecPromptOutput } from '../../../store/wizardSlice';
-import { loadPromptTemplate, replaceTokens } from '../../../utils/promptUtils';
-import PromptOutput from '../../common/PromptOutput';
-import TextInput from '../../common/TextInput';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Box,
+  Typography,
+} from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTemplateData } from "../../../hooks/useTemplateData";
+import { RootState } from "../../../store";
+import { setSpecPromptOutput } from "../../../store/wizardSlice";
+import { loadPromptTemplate, replaceTokens } from "../../../utils/promptUtils";
+import PromptOutput from "../../common/PromptOutput";
+import TextInput from "../../common/TextInput";
+import PromptInstructions from "../../common/PromptInstructions";
+import PromptHeaderWithCopy from "../../common/PromptHeaderWithCopy";
 
 /**
  * Component for the Spec Prompt step
@@ -19,9 +29,9 @@ const SpecPromptStep = () => {
   const dispatch = useDispatch();
   const { specPromptOutput } = useSelector((state: RootState) => state.wizard);
   const templateData = useTemplateData();
-  
-  const [template, setTemplate] = useState('');
-  const [processedTemplate, setProcessedTemplate] = useState('');
+
+  const [template, setTemplate] = useState("");
+  const [processedTemplate, setProcessedTemplate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,12 +39,12 @@ const SpecPromptStep = () => {
     const loadTemplate = async () => {
       try {
         setLoading(true);
-        const loadedTemplate = await loadPromptTemplate('prompt2.md');
+        const loadedTemplate = await loadPromptTemplate("prompt2.md");
         setTemplate(loadedTemplate.content);
         setError(null);
       } catch (err) {
-        console.error('Failed to load template:', err);
-        setError('Failed to load template. Please refresh the page.');
+        console.error("Failed to load template:", err);
+        setError("Failed to load template. Please refresh the page.");
       } finally {
         setLoading(false);
       }
@@ -63,18 +73,30 @@ const SpecPromptStep = () => {
 
   return (
     <Box>
-      <PromptOutput
-        title="Spec Prompt"
-        value={processedTemplate}
-        readOnly
-      />
-      
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Copy the prompt above and paste it into ChatGPT-4o Pro. Once you have the response, paste it below.
-      </Alert>
-      
+      <Accordion defaultExpanded={false} sx={{ mb: 2 }}>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="spec-prompt-content"
+          id="spec-prompt-header"
+        >
+          <PromptHeaderWithCopy 
+            title="Technical Specifications Prompt" 
+            contentToCopy={processedTemplate} 
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <PromptOutput
+            title="Spec Prompt"
+            value={processedTemplate}
+            readOnly
+          />
+        </AccordionDetails>
+      </Accordion>
+
+      <PromptInstructions />
+
       <TextInput
-        label="Spec Prompt Output"
+        label="Technical Specifications Response"
         value={specPromptOutput}
         onChange={handleOutputChange}
         placeholder="Paste the ChatGPT response here..."

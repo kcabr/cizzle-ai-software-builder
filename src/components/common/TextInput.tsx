@@ -34,9 +34,12 @@ const TextInput = ({
 }: TextInputProps) => {
   return (
     <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 3 }}>
-      <Typography variant="h6" gutterBottom>
-        {label}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+        <Typography variant="h6">
+          {label}
+        </Typography>
+        {showTokenCount && <TokenCounter text={value} />}
+      </Box>
       
       <TextField
         value={value}
@@ -51,10 +54,11 @@ const TextInput = ({
         sx={{ mb: 2, ...textAreaStyles }}
       />
       
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        {helperText && <Typography variant="body2" color="text.secondary">{helperText}</Typography>}
-        {showTokenCount && <TokenCounter text={value} />}
-      </Box>
+      {helperText && (
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="body2" color="text.secondary">{helperText}</Typography>
+        </Box>
+      )}
     </Paper>
   );
 };

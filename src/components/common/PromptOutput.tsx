@@ -49,12 +49,11 @@ const PromptOutput = ({
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           alignItems: "center",
         }}
       >
         <CopyButton text={value} disabled={!value} />
-        <TokenCounter text={value} />
       </Box>
     </Paper>
   );

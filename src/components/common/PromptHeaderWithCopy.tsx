@@ -4,6 +4,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { copyToClipboard } from '../../utils/clipboardUtils';
+import TokenCounter from './TokenCounter';
 
 interface PromptHeaderWithCopyProps {
   /**
@@ -47,6 +48,7 @@ const PromptHeaderWithCopy = ({
         </Button>
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
+      <TokenCounter text={contentToCopy} sx={{ mr: 2 }} />
     </Box>
   );
 };

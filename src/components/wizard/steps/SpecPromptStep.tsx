@@ -79,9 +79,9 @@ const SpecPromptStep = () => {
           aria-controls="spec-prompt-content"
           id="spec-prompt-header"
         >
-          <PromptHeaderWithCopy 
-            title="Technical Specifications Prompt" 
-            contentToCopy={processedTemplate} 
+          <PromptHeaderWithCopy
+            title="Technical Specifications Prompt"
+            contentToCopy={processedTemplate}
           />
         </AccordionSummary>
         <AccordionDetails>
@@ -101,7 +101,7 @@ const SpecPromptStep = () => {
         onChange={handleOutputChange}
         placeholder="Paste the ChatGPT response here..."
         minRows={10}
-        helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from ChatGPT here."
         required={true}
       />
     </Box>

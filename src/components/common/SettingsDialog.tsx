@@ -12,23 +12,28 @@ import {
   IconButton,
   TextField,
   Typography,
+  Divider,
 } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { resetWizard, setOpenAiApiKey } from '../../store/wizardSlice';
+import { resetWizard, setOpenAiApiKey, setProjectRulesDefault } from '../../store/wizardSlice';
 
 /**
  * Dialog component for application settings
  */
 const SettingsDialog = () => {
   const [open, setOpen] = useState(false);
-  const { openAiApiKey } = useSelector((state: RootState) => state.wizard);
+  const { openAiApiKey, projectRulesDefault } = useSelector((state: RootState) => state.wizard);
   const [apiKey, setApiKey] = useState(openAiApiKey || '');
+  const [rulesDefault, setRulesDefault] = useState(projectRulesDefault || '');
   const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
+    // Reset the form values to current state when opening
+    setApiKey(openAiApiKey || '');
+    setRulesDefault(projectRulesDefault || '');
   };
 
   const handleClose = () => {
@@ -37,6 +42,7 @@ const SettingsDialog = () => {
 
   const handleSave = () => {
     dispatch(setOpenAiApiKey(apiKey || null));
+    dispatch(setProjectRulesDefault(rulesDefault || null));
     handleClose();
   };
 
@@ -80,7 +86,23 @@ const SettingsDialog = () => {
             helperText="Optional: Add your OpenAI API key to enable AI text cleaning"
           />
 
-          <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
+          <Divider sx={{ my: 3 }} />
+
+          <Typography variant="subtitle1" gutterBottom>
+            Project Rules Default URL
+          </Typography>
+          <TextField
+            value={rulesDefault}
+            onChange={(e) => setRulesDefault(e.target.value)}
+            placeholder="https://raw.githubusercontent.com/..."
+            fullWidth
+            margin="normal"
+            helperText="URL to fetch default project rules from (used when creating new projects)"
+          />
+
+          <Divider sx={{ my: 3 }} />
+
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>
             Reset Application
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>

@@ -81,9 +81,9 @@ const PlannerPromptStep = () => {
           aria-controls="planner-prompt-content"
           id="planner-prompt-header"
         >
-          <PromptHeaderWithCopy 
-            title="Planner Prompt" 
-            contentToCopy={processedTemplate} 
+          <PromptHeaderWithCopy
+            title="Planner Prompt"
+            contentToCopy={processedTemplate}
           />
         </AccordionSummary>
         <AccordionDetails>
@@ -103,7 +103,7 @@ const PlannerPromptStep = () => {
         onChange={handleOutputChange}
         placeholder="Paste the ChatGPT response here..."
         minRows={10}
-        helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from ChatGPT here."
         required={true}
       />
     </Box>

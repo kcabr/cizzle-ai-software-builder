@@ -18,6 +18,7 @@ export interface WizardState {
   currentStep: WizardStep;
   idea: string;
   projectRules: string;
+  projectRulesDefault: string | null;
   starterTemplate: string;
   requestPromptOutput: string;
   specPromptOutput: string;

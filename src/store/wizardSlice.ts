@@ -8,6 +8,7 @@ const initialState: WizardState = {
   currentStep: 'idea',
   idea: '',
   projectRules: '',
+  projectRulesDefault: localStorage.getItem('projectRulesDefault') || 'https://raw.githubusercontent.com/mckaywrigley/mckays-app-template/refs/heads/main/.cursorrules',
   starterTemplate: '',
   requestPromptOutput: '',
   specPromptOutput: '',
@@ -57,13 +58,22 @@ const wizardSlice = createSlice({
         localStorage.removeItem('openAiApiKey');
       }
     },
+    setProjectRulesDefault: (state, action: PayloadAction<string | null>) => {
+      state.projectRulesDefault = action.payload;
+      if (action.payload) {
+        localStorage.setItem('projectRulesDefault', action.payload);
+      } else {
+        localStorage.removeItem('projectRulesDefault');
+      }
+    },
     setUseAiCleaning: (state, action: PayloadAction<boolean>) => {
       state.useAiCleaning = action.payload;
     },
     resetWizard: (state) => {
-      // Keep the API key but reset everything else
+      // Keep the API key and project rules default but reset everything else
       const openAiApiKey = state.openAiApiKey;
-      Object.assign(state, { ...initialState, openAiApiKey });
+      const projectRulesDefault = state.projectRulesDefault;
+      Object.assign(state, { ...initialState, openAiApiKey, projectRulesDefault });
     },
   },
 });
@@ -72,6 +82,7 @@ export const {
   setCurrentStep,
   setIdea,
   setProjectRules,
+  setProjectRulesDefault,
   setStarterTemplate,
   setRequestPromptOutput,
   setSpecPromptOutput,

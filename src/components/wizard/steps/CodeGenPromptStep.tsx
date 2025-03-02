@@ -154,7 +154,7 @@ const CodeGenPromptStep = () => {
         onChange={handleOutputChange}
         placeholder="Paste the response here..."
         minRows={10}
-        helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from ChatGPT here."
         required={true}
       />
     </Box>

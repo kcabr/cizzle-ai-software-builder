@@ -81,9 +81,9 @@ const RequestPromptStep = () => {
           aria-controls="request-prompt-content"
           id="request-prompt-header"
         >
-          <PromptHeaderWithCopy 
-            title="Request Prompt Input" 
-            contentToCopy={processedTemplate} 
+          <PromptHeaderWithCopy
+            title="Request Prompt Input"
+            contentToCopy={processedTemplate}
           />
         </AccordionSummary>
         <AccordionDetails>
@@ -103,7 +103,7 @@ const RequestPromptStep = () => {
         onChange={handleOutputChange}
         placeholder="Paste the ChatGPT response here..."
         minRows={10}
-        helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from ChatGPT here."
         required={true}
       />
     </Box>

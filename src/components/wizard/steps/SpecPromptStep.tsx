@@ -99,9 +99,9 @@ const SpecPromptStep = () => {
         label="Technical Specifications Response"
         value={specPromptOutput}
         onChange={handleOutputChange}
-        placeholder="Paste the ChatGPT response here..."
+        placeholder="Paste the AI response here..."
         minRows={10}
-        //helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from non-reasoning AI Model here."
         required={true}
       />
     </Box>

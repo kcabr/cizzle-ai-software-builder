@@ -95,15 +95,15 @@ const RequestPromptStep = () => {
         </AccordionDetails>
       </Accordion>
 
-      <PromptInstructions customMessage="Copy the prompt above and paste it into ChatGPT-4o. Iterate and answer the questions until you have the final output. Once you have the final output, paste it below." />
+      <PromptInstructions customMessage="☝️ Review, Make Adjustments, then use in a NON-REASONING AI Model. Iterate and answer the questions until you have the final output. Once you have the final output, paste it below." />
 
       <TextInput
         label="Request Response"
         value={requestPromptOutput}
         onChange={handleOutputChange}
-        placeholder="Paste the ChatGPT response here..."
+        placeholder="Paste the AI response here..."
         minRows={10}
-        //helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from non-reasoning AI Model here."
         required={true}
       />
     </Box>

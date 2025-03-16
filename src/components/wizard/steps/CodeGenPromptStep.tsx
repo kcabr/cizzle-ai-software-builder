@@ -152,9 +152,9 @@ const CodeGenPromptStep = () => {
         label="Code Generation Response"
         value={codeGenPromptOutput}
         onChange={handleOutputChange}
-        placeholder="Paste the response here..."
+        placeholder="Paste the AI responses here..."
         minRows={10}
-        //helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from non-reasoning AI Model here."
         required={true}
       />
     </Box>

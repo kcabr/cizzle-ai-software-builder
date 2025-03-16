@@ -58,13 +58,13 @@ const Wizard = () => {
           }}
         >
           <Typography variant="h4" component="h1">
-            o1-pro-template-system-helper
+            Cizzle's AI Software Builder
           </Typography>
           <SettingsDialog />
         </Box>
         <Typography variant="body1" color="text.secondary">
           A step-by-step wizard for preparing structured AI-generated code
-          prompts for ChatGPT-o1 Pro.
+          prompts for AI Models.
         </Typography>
       </Paper>
 

@@ -2,7 +2,7 @@
  * Settings dialog component
  * Allows users to configure application settings
  */
-import { Close, Settings } from '@mui/icons-material';
+import { Close, Settings } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -13,27 +13,38 @@ import {
   TextField,
   Typography,
   Divider,
-} from '@mui/material';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { resetWizard, setOpenAiApiKey, setProjectRulesDefault } from '../../store/wizardSlice';
+} from "@mui/material";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import {
+  resetWizard,
+  setAiApiKey,
+  setAiEndpoint,
+  setProjectRulesDefault,
+} from "../../store/wizardSlice";
 
 /**
  * Dialog component for application settings
  */
 const SettingsDialog = () => {
   const [open, setOpen] = useState(false);
-  const { openAiApiKey, projectRulesDefault } = useSelector((state: RootState) => state.wizard);
-  const [apiKey, setApiKey] = useState(openAiApiKey || '');
-  const [rulesDefault, setRulesDefault] = useState(projectRulesDefault || '');
+  const { aiApiKey, aiEndpoint, projectRulesDefault } = useSelector(
+    (state: RootState) => state.wizard
+  );
+  const [apiKey, setApiKey] = useState(aiApiKey || "");
+  const [endpoint, setEndpoint] = useState(
+    aiEndpoint || "https://api.openai.com/v1/chat/completions"
+  );
+  const [rulesDefault, setRulesDefault] = useState(projectRulesDefault || "");
   const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
     // Reset the form values to current state when opening
-    setApiKey(openAiApiKey || '');
-    setRulesDefault(projectRulesDefault || '');
+    setApiKey(aiApiKey || "");
+    setEndpoint(aiEndpoint || "https://api.openai.com/v1/chat/completions");
+    setRulesDefault(projectRulesDefault || "");
   };
 
   const handleClose = () => {
@@ -41,13 +52,18 @@ const SettingsDialog = () => {
   };
 
   const handleSave = () => {
-    dispatch(setOpenAiApiKey(apiKey || null));
+    dispatch(setAiApiKey(apiKey || null));
+    dispatch(setAiEndpoint(endpoint || null));
     dispatch(setProjectRulesDefault(rulesDefault || null));
     handleClose();
   };
 
   const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+    if (
+      window.confirm(
+        "Are you sure you want to reset all data? This cannot be undone."
+      )
+    ) {
       dispatch(resetWizard());
       handleClose();
     }
@@ -65,7 +81,13 @@ const SettingsDialog = () => {
       </Button>
 
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <DialogTitle
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           Settings
           <IconButton onClick={handleClose} edge="end">
             <Close />
@@ -74,7 +96,7 @@ const SettingsDialog = () => {
 
         <DialogContent dividers>
           <Typography variant="subtitle1" gutterBottom>
-            OpenAI API Key
+            AI API Key
           </Typography>
           <TextField
             value={apiKey}
@@ -83,7 +105,21 @@ const SettingsDialog = () => {
             fullWidth
             margin="normal"
             type="password"
-            helperText="Optional: Add your OpenAI API key to enable AI text cleaning"
+            helperText="Optional: Add your API key to enable AI text cleaning"
+          />
+
+          <Divider sx={{ my: 3 }} />
+
+          <Typography variant="subtitle1" gutterBottom>
+            AI API Endpoint
+          </Typography>
+          <TextField
+            value={endpoint}
+            onChange={(e) => setEndpoint(e.target.value)}
+            placeholder="https://api.openai.com/v1/chat/completions"
+            fullWidth
+            margin="normal"
+            helperText="URL for the AI API endpoint (defaults to non-reasoning AI Model-compatible chat completions API)"
           />
 
           <Divider sx={{ my: 3 }} />
@@ -106,7 +142,8 @@ const SettingsDialog = () => {
             Reset Application
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>
-            This will reset all data and return to the first step. This action cannot be undone.
+            This will reset all data and return to the first step. This action
+            cannot be undone.
           </Typography>
           <Button
             variant="outlined"

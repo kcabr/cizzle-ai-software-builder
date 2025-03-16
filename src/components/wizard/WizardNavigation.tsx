@@ -24,7 +24,7 @@ const STEP_LABELS: Record<WizardStep, string> = {
   requestPrompt: "Request Prompt",
   specPrompt: "Spec Prompt",
   plannerPrompt: "Planner Prompt",
-  codeGenPrompt: "Code Gen Prompt",
+  codeGenPrompt: "Code Gen Prompt ♻️",
   reviewPrompt: "Review Prompt",
 };
 

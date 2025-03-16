@@ -25,8 +25,8 @@ export interface WizardState {
   plannerPromptOutput: string;
   codeGenPromptOutput: string;
   codeGenPromptType: CodeGenPromptType;
-  openAiApiKey: string | null;
-  useAiCleaning: boolean;
+  aiApiKey: string | null;
+  aiEndpoint: string | null;
 }
 
 export interface PromptTemplate {

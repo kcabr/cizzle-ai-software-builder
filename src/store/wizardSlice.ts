@@ -15,8 +15,8 @@ const initialState: WizardState = {
   plannerPromptOutput: '',
   codeGenPromptOutput: '',
   codeGenPromptType: 'standard',
-  openAiApiKey: localStorage.getItem('openAiApiKey'),
-  useAiCleaning: false,
+  aiApiKey: localStorage.getItem('aiApiKey'),
+  aiEndpoint: localStorage.getItem('aiEndpoint') || 'https://api.openai.com/v1/chat/completions',
 };
 
 const wizardSlice = createSlice({
@@ -50,12 +50,22 @@ const wizardSlice = createSlice({
     setCodeGenPromptType: (state, action: PayloadAction<CodeGenPromptType>) => {
       state.codeGenPromptType = action.payload;
     },
-    setOpenAiApiKey: (state, action: PayloadAction<string | null>) => {
-      state.openAiApiKey = action.payload;
+    setAiApiKey: (state, action: PayloadAction<string | null>) => {
+      state.aiApiKey = action.payload;
       if (action.payload) {
-        localStorage.setItem('openAiApiKey', action.payload);
+        localStorage.setItem('aiApiKey', action.payload);
       } else {
-        localStorage.removeItem('openAiApiKey');
+        localStorage.removeItem('aiApiKey');
+      }
+    },
+    setAiEndpoint: (state, action: PayloadAction<string | null>) => {
+      state.aiEndpoint = action.payload;
+      if (action.payload) {
+        localStorage.setItem('aiEndpoint', action.payload);
+      } else {
+        localStorage.removeItem('aiEndpoint');
+        // Reset to default if removed
+        state.aiEndpoint = 'https://api.openai.com/v1/chat/completions';
       }
     },
     setProjectRulesDefault: (state, action: PayloadAction<string | null>) => {
@@ -66,14 +76,12 @@ const wizardSlice = createSlice({
         localStorage.removeItem('projectRulesDefault');
       }
     },
-    setUseAiCleaning: (state, action: PayloadAction<boolean>) => {
-      state.useAiCleaning = action.payload;
-    },
     resetWizard: (state) => {
-      // Keep the API key and project rules default but reset everything else
-      const openAiApiKey = state.openAiApiKey;
+      // Keep the API key, endpoint and project rules default but reset everything else
+      const aiApiKey = state.aiApiKey;
+      const aiEndpoint = state.aiEndpoint;
       const projectRulesDefault = state.projectRulesDefault;
-      Object.assign(state, { ...initialState, openAiApiKey, projectRulesDefault });
+      Object.assign(state, { ...initialState, aiApiKey, aiEndpoint, projectRulesDefault });
     },
   },
 });
@@ -89,8 +97,8 @@ export const {
   setPlannerPromptOutput,
   setCodeGenPromptOutput,
   setCodeGenPromptType,
-  setOpenAiApiKey,
-  setUseAiCleaning,
+  setAiApiKey,
+  setAiEndpoint,
   resetWizard,
 } = wizardSlice.actions;
 

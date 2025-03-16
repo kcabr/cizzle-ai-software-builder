@@ -1,6 +1,6 @@
 /**
  * Reusable prompt instructions component
- * Displays standardized instructions for copying prompts to ChatGPT
+ * Displays standardized instructions for copying prompts to non-reasoning AI Model
  */
 import { Alert, AlertProps } from "@mui/material";
 
@@ -23,7 +23,7 @@ const PromptInstructions = ({
   sx = { mb: 3 },
 }: PromptInstructionsProps) => {
   const defaultMessage =
-    "Copy the prompt above and paste it into ChatGPT-o1 Pro. Once you have the response, paste it below.";
+    "☝️ Review, Make Adjustments, then use in a REASONING AI Model. Paste the response below.";
 
   return (
     <Alert severity="info" sx={sx}>

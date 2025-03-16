@@ -1,16 +1,17 @@
 /**
- * Service for OpenAI API operations
+ * Service for AI API operations
  */
 
 /**
- * Clean the given text using OpenAI API
+ * Clean the given text using AI API
  * @param text The text to clean
- * @param apiKey The OpenAI API key
+ * @param apiKey The API key
+ * @param endpoint The API endpoint URL
  * @returns Promise resolving to the cleaned text
  */
-export const cleanTextWithAI = async (text: string, apiKey: string): Promise<string> => {
+export const cleanTextWithAI = async (text: string, apiKey: string, endpoint: string): Promise<string> => {
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

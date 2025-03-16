@@ -101,9 +101,9 @@ const PlannerPromptStep = () => {
         label="Planner Response"
         value={plannerPromptOutput}
         onChange={handleOutputChange}
-        placeholder="Paste the ChatGPT response here..."
+        placeholder="Paste the AI response here..."
         minRows={10}
-        //helperText="Paste the complete response from ChatGPT here."
+        //helperText="Paste the complete response from non-reasoning AI Model here."
         required={true}
       />
     </Box>

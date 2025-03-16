@@ -75,7 +75,7 @@ const ReviewPromptStep = () => {
           aria-controls="review-prompt-content"
           id="review-prompt-header"
         >
-          <PromptHeaderWithCopy 
+          <PromptHeaderWithCopy
             title="Review Prompt Input"
             contentToCopy={processedTemplate}
           />
@@ -89,7 +89,7 @@ const ReviewPromptStep = () => {
         </AccordionDetails>
       </Accordion>
 
-      <PromptInstructions customMessage="Copy the prompt above and paste it into ChatGPT-4o Pro to get feedback and improvements on your code." />
+      <PromptInstructions />
     </Box>
   );
 };

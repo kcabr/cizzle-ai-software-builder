@@ -5,7 +5,7 @@ import { encode } from 'gpt-tokenizer';
 import { PromptTemplate, TemplateData } from '../types';
 
 /**
- * Calculate the number of tokens in a text using OpenAI's tokenizer
+ * Calculate the number of tokens in a text using GPT tokenizer
  * @param text The text to calculate tokens for
  * @returns The number of tokens in the text
  */

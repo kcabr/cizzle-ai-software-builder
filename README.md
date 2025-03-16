@@ -1,54 +1,142 @@
-# React + TypeScript + Vite
+# Cizzle's AI Software Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A step-by-step wizard application for creating structured prompts for AI code generation. This tool guides you through the process of building comprehensive, context-rich prompts to generate high-quality code with non-reasoning AI models.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Wizard-Based Workflow**: Navigate through a structured series of steps, with each step building upon previous inputs
+- **Token-Based Templates**: Automated insertion of your inputs into pre-defined prompt templates
+- **Token Counting**: Real-time tracking of token usage for AI model compatibility
+- **Copy to Clipboard**: Easy copying of generated prompts
+- **Dark/Light Mode**: Automatic theme detection based on system preferences
+- **Session Persistence**: Local storage saves your progress if you refresh the page
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (v18 or higher recommended)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/cizzle-ai-software-builder.git
+   cd cizzle-ai-software-builder
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
+
+### Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+# or
+yarn build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The output will be in the `dist` directory, ready to be deployed to your hosting service.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How to Use
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Step 1: Define Your Web App Idea
+
+- Enter a detailed description of the web application you want to build
+- Be specific about features, functionalities, and design preferences
+
+### Step 2: Set Project Rules
+
+- Define constraints, requirements, and guidelines for your project
+- Include technology preferences, coding standards, and architectural decisions
+
+### Step 3: Starter Template
+
+- Provide a basic starter template or boilerplate code if applicable
+- Leave empty if you're starting from scratch
+
+### Step 4: Request Prompt
+
+- The system generates a structured request prompt with your idea inserted
+- Copy this prompt to a non-reasoning AI Model
+- Iterate with the AI until you have a satisfactory response
+- Paste the AI's response back into the application
+
+### Step 5: Technical Specifications
+
+- The system generates a technical specifications prompt with your previous outputs inserted
+- Copy this prompt to a non-reasoning AI Model
+- Paste the AI's response back into the application
+
+### Step 6: Planner Prompt
+
+- The system generates a planning prompt incorporating previous inputs and outputs
+- Copy this prompt to a non-reasoning AI Model
+- Paste the AI's response back into the application
+
+### Step 7: Code Generation
+
+- Choose between standard or advanced (XML) code generation format
+- The system generates a code implementation prompt with all previous context
+- Copy this prompt to a non-reasoning AI Model
+- Paste the AI's response back into the application
+
+### Step 8: Review Prompt
+
+- The final step generates a review prompt that includes all your code and context
+- Use this prompt to get feedback and improvements on your generated code
+
+## Advanced Features
+
+### Settings
+
+- Access settings by clicking the "Settings" button in the top-right corner
+- **AI API Key**: Optionally add your API key to enable AI-assisted text cleaning
+- **AI API Endpoint**: Configure the AI API endpoint URL
+- **Project Rules Default URL**: Set a default URL for fetching project rules
+
+### AI Text Cleaning
+
+If you've provided an API key in settings, you can use the AI-assisted text cleaning feature to refine your inputs.
+
+## Contribution
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Built with React, TypeScript, and Material UI
+- Uses Redux for state management
+- Developed to streamline the AI-assisted software development process

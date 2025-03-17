@@ -66,6 +66,7 @@ The output will be in the `dist` directory, ready to be deployed to your hosting
 
 - Enter a detailed description of the web application you want to build
 - Be specific about features, functionalities, and design preferences
+- Optional: Use the AI Punch-up button to expand and grammatically clean your idea
 
 ### Step 2: Set Project Rules
 
@@ -79,27 +80,27 @@ The output will be in the `dist` directory, ready to be deployed to your hosting
 
 ### Step 4: Request Prompt
 
-- The system generates a structured request prompt with your idea inserted
+- The system generates a structured request prompt with your idea inserted; review and tweak
 - Copy this prompt to a non-reasoning AI Model
 - Iterate with the AI until you have a satisfactory response
 - Paste the AI's response back into the application
 
 ### Step 5: Technical Specifications
 
-- The system generates a technical specifications prompt with your previous outputs inserted
+- The system generates a technical specifications prompt with your previous outputs inserted; review and tweak
 - Copy this prompt to a REASONING AI Model with a Large Context Window
 - Paste the AI's response back into the application
 
 ### Step 6: Planner Prompt
 
-- The system generates a planning prompt incorporating previous inputs and outputs
+- The system generates a planning prompt incorporating previous inputs and outputs; review and tweak
 - Copy this prompt to a REASONING AI Model with a Large Context Window
 - Paste the AI's response back into the application
 
 ### Step 7: Code Generation
 
 - Choose between standard or advanced (XML) code generation format
-- The system generates a code implementation prompt with all previous context
+- The system generates a code implementation prompt with all previous context; review and tweak
 - Copy this prompt to a REASONING AI Model with a Large Context Window
 - Add the generated code files to your project; bugfix / tweak
 - Repomix your codebase (text all in one file) and replace the Current Code input with your latest code; do this for each planner step

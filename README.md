@@ -87,21 +87,23 @@ The output will be in the `dist` directory, ready to be deployed to your hosting
 ### Step 5: Technical Specifications
 
 - The system generates a technical specifications prompt with your previous outputs inserted
-- Copy this prompt to a non-reasoning AI Model
+- Copy this prompt to a REASONING AI Model with a Large Context Window
 - Paste the AI's response back into the application
 
 ### Step 6: Planner Prompt
 
 - The system generates a planning prompt incorporating previous inputs and outputs
-- Copy this prompt to a non-reasoning AI Model
+- Copy this prompt to a REASONING AI Model with a Large Context Window
 - Paste the AI's response back into the application
 
 ### Step 7: Code Generation
 
 - Choose between standard or advanced (XML) code generation format
 - The system generates a code implementation prompt with all previous context
-- Copy this prompt to a non-reasoning AI Model
-- Paste the AI's response back into the application
+- Copy this prompt to a REASONING AI Model with a Large Context Window
+- Add the generated code files to your project; bugfix / tweak
+- Repomix your codebase (text all in one file) and replace the Current Code input with your latest code; do this for each planner step
+- Check off planner step within the prompt text (- [ ] turns to - [x]); This tells the Code Generation prompt to skip this step next time; Re-add it to the code section; Rinse / Repeat for each step
 
 ### Step 8: Review Prompt
 

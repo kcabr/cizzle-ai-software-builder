@@ -1,26 +1,34 @@
 /**
  * Redux slice for managing the wizard state
  */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CodeGenPromptType, WizardState, WizardStep } from '../types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CodeGenPromptType, WizardState, WizardStep } from "../types";
 
 const initialState: WizardState = {
-  currentStep: 'idea',
-  idea: '',
-  projectRules: '',
-  projectRulesDefault: localStorage.getItem('projectRulesDefault') || 'https://raw.githubusercontent.com/mckaywrigley/mckays-app-template/refs/heads/main/.cursorrules',
-  starterTemplate: '',
-  requestPromptOutput: '',
-  specPromptOutput: '',
-  plannerPromptOutput: '',
-  codeGenPromptOutput: '',
-  codeGenPromptType: 'standard',
-  aiApiKey: localStorage.getItem('aiApiKey'),
-  aiEndpoint: localStorage.getItem('aiEndpoint') || 'https://api.openai.com/v1/chat/completions',
+  currentStep: "idea",
+  idea: "",
+  projectRules: "",
+  projectRulesDefault:
+    //localStorage.getItem("projectRulesDefault") ||
+    import.meta.env.VITE_DEFAULT_PROJECT_RULES_URL || "",
+  starterTemplate: "",
+  starterTemplateDefault:
+    localStorage.getItem("starterTemplateDefault") ||
+    import.meta.env.VITE_DEFAULT_STARTER_TEMPLATE_URL ||
+    "",
+  requestPromptOutput: "",
+  specPromptOutput: "",
+  plannerPromptOutput: "",
+  codeGenPromptOutput: "",
+  codeGenPromptType: "standard",
+  aiApiKey: localStorage.getItem("aiApiKey"),
+  aiEndpoint:
+    localStorage.getItem("aiEndpoint") ||
+    "https://api.openai.com/v1/chat/completions",
 };
 
 const wizardSlice = createSlice({
-  name: 'wizard',
+  name: "wizard",
   initialState,
   reducers: {
     setCurrentStep: (state, action: PayloadAction<WizardStep>) => {
@@ -53,35 +61,53 @@ const wizardSlice = createSlice({
     setAiApiKey: (state, action: PayloadAction<string | null>) => {
       state.aiApiKey = action.payload;
       if (action.payload) {
-        localStorage.setItem('aiApiKey', action.payload);
+        localStorage.setItem("aiApiKey", action.payload);
       } else {
-        localStorage.removeItem('aiApiKey');
+        localStorage.removeItem("aiApiKey");
       }
     },
     setAiEndpoint: (state, action: PayloadAction<string | null>) => {
       state.aiEndpoint = action.payload;
       if (action.payload) {
-        localStorage.setItem('aiEndpoint', action.payload);
+        localStorage.setItem("aiEndpoint", action.payload);
       } else {
-        localStorage.removeItem('aiEndpoint');
+        localStorage.removeItem("aiEndpoint");
         // Reset to default if removed
-        state.aiEndpoint = 'https://api.openai.com/v1/chat/completions';
+        state.aiEndpoint = "https://api.openai.com/v1/chat/completions";
       }
     },
     setProjectRulesDefault: (state, action: PayloadAction<string | null>) => {
       state.projectRulesDefault = action.payload;
       if (action.payload) {
-        localStorage.setItem('projectRulesDefault', action.payload);
+        localStorage.setItem("projectRulesDefault", action.payload);
       } else {
-        localStorage.removeItem('projectRulesDefault');
+        localStorage.removeItem("projectRulesDefault");
+      }
+    },
+    setStarterTemplateDefault: (
+      state,
+      action: PayloadAction<string | null>
+    ) => {
+      state.starterTemplateDefault = action.payload;
+      if (action.payload) {
+        localStorage.setItem("starterTemplateDefault", action.payload);
+      } else {
+        localStorage.removeItem("starterTemplateDefault");
       }
     },
     resetWizard: (state) => {
-      // Keep the API key, endpoint and project rules default but reset everything else
+      // Keep the API key, endpoint, project rules default, and starter template default but reset everything else
       const aiApiKey = state.aiApiKey;
       const aiEndpoint = state.aiEndpoint;
       const projectRulesDefault = state.projectRulesDefault;
-      Object.assign(state, { ...initialState, aiApiKey, aiEndpoint, projectRulesDefault });
+      const starterTemplateDefault = state.starterTemplateDefault;
+      Object.assign(state, {
+        ...initialState,
+        aiApiKey,
+        aiEndpoint,
+        projectRulesDefault,
+        starterTemplateDefault,
+      });
     },
   },
 });
@@ -92,6 +118,7 @@ export const {
   setProjectRules,
   setProjectRulesDefault,
   setStarterTemplate,
+  setStarterTemplateDefault,
   setRequestPromptOutput,
   setSpecPromptOutput,
   setPlannerPromptOutput,

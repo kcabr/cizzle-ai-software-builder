@@ -22,6 +22,7 @@ import {
   setAiApiKey,
   setAiEndpoint,
   setProjectRulesDefault,
+  setStarterTemplateDefault,
 } from "../../store/wizardSlice";
 
 /**
@@ -29,14 +30,16 @@ import {
  */
 const SettingsDialog = () => {
   const [open, setOpen] = useState(false);
-  const { aiApiKey, aiEndpoint, projectRulesDefault } = useSelector(
-    (state: RootState) => state.wizard
-  );
+  const { aiApiKey, aiEndpoint, projectRulesDefault, starterTemplateDefault } =
+    useSelector((state: RootState) => state.wizard);
   const [apiKey, setApiKey] = useState(aiApiKey || "");
   const [endpoint, setEndpoint] = useState(
     aiEndpoint || "https://api.openai.com/v1/chat/completions"
   );
   const [rulesDefault, setRulesDefault] = useState(projectRulesDefault || "");
+  const [templateDefault, setTemplateDefault] = useState(
+    starterTemplateDefault || ""
+  );
   const dispatch = useDispatch();
 
   const handleOpen = () => {
@@ -45,6 +48,7 @@ const SettingsDialog = () => {
     setApiKey(aiApiKey || "");
     setEndpoint(aiEndpoint || "https://api.openai.com/v1/chat/completions");
     setRulesDefault(projectRulesDefault || "");
+    setTemplateDefault(starterTemplateDefault || "");
   };
 
   const handleClose = () => {
@@ -55,6 +59,7 @@ const SettingsDialog = () => {
     dispatch(setAiApiKey(apiKey || null));
     dispatch(setAiEndpoint(endpoint || null));
     dispatch(setProjectRulesDefault(rulesDefault || null));
+    dispatch(setStarterTemplateDefault(templateDefault || null));
     handleClose();
   };
 
@@ -134,6 +139,20 @@ const SettingsDialog = () => {
             fullWidth
             margin="normal"
             helperText="URL to fetch default project rules from (used when creating new projects)"
+          />
+
+          <Divider sx={{ my: 3 }} />
+
+          <Typography variant="subtitle1" gutterBottom>
+            Starter Template Default URL
+          </Typography>
+          <TextField
+            value={templateDefault}
+            onChange={(e) => setTemplateDefault(e.target.value)}
+            placeholder="https://raw.githubusercontent.com/..."
+            fullWidth
+            margin="normal"
+            helperText="URL to fetch default starter template from (used when creating new projects)"
           />
 
           <Divider sx={{ my: 3 }} />

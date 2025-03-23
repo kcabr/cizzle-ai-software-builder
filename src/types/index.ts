@@ -2,17 +2,17 @@
  * Primary type definitions for the application
  */
 
-export type WizardStep = 
-  | 'idea' 
-  | 'projectRules' 
-  | 'starterTemplate' 
-  | 'requestPrompt' 
-  | 'specPrompt' 
-  | 'plannerPrompt' 
-  | 'codeGenPrompt' 
-  | 'reviewPrompt';
+export type WizardStep =
+  | "idea"
+  | "projectRules"
+  | "starterTemplate"
+  | "requestPrompt"
+  | "specPrompt"
+  | "plannerPrompt"
+  | "codeGenPrompt"
+  | "reviewPrompt";
 
-export type CodeGenPromptType = 'standard' | 'advanced';
+export type CodeGenPromptType = "standard" | "advanced";
 
 export interface WizardState {
   currentStep: WizardStep;
@@ -20,6 +20,7 @@ export interface WizardState {
   projectRules: string;
   projectRulesDefault: string | null;
   starterTemplate: string;
+  starterTemplateDefault: string | null;
   requestPromptOutput: string;
   specPromptOutput: string;
   plannerPromptOutput: string;

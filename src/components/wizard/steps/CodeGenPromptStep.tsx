@@ -22,6 +22,7 @@ import { RootState } from "../../../store";
 import {
   setCodeGenPromptOutput,
   setCodeGenPromptType,
+  setExistingCode,
 } from "../../../store/wizardSlice";
 import { loadPromptTemplate, replaceTokens } from "../../../utils/promptUtils";
 import PromptOutput from "../../common/PromptOutput";
@@ -35,9 +36,12 @@ import { CodeGenPromptType } from "../../../types";
  */
 const CodeGenPromptStep = () => {
   const dispatch = useDispatch();
-  const { codeGenPromptOutput, codeGenPromptType } = useSelector(
-    (state: RootState) => state.wizard
-  );
+  const {
+    codeGenPromptOutput,
+    codeGenPromptType,
+    existingCode,
+    starterTemplate,
+  } = useSelector((state: RootState) => state.wizard);
   const templateData = useTemplateData();
 
   const [standardTemplate, setStandardTemplate] = useState("");
@@ -45,6 +49,13 @@ const CodeGenPromptStep = () => {
   const [processedTemplate, setProcessedTemplate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Initialize existingCode with starterTemplate if it's empty
+  useEffect(() => {
+    if (!existingCode && starterTemplate) {
+      dispatch(setExistingCode(starterTemplate));
+    }
+  }, [dispatch, existingCode, starterTemplate]);
 
   // Load both templates
   useEffect(() => {
@@ -89,6 +100,10 @@ const CodeGenPromptStep = () => {
     dispatch(setCodeGenPromptOutput(value));
   };
 
+  const handleExistingCodeChange = (value: string) => {
+    dispatch(setExistingCode(value));
+  };
+
   if (loading) {
     return <Typography>Loading templates...</Typography>;
   }
@@ -99,6 +114,23 @@ const CodeGenPromptStep = () => {
 
   return (
     <Box>
+      {/* Existing Code text area at the top */}
+      <Typography variant="h6" gutterBottom>
+        Existing Code
+      </Typography>
+      <TextInput
+        label="Existing Code"
+        value={existingCode}
+        onChange={handleExistingCodeChange}
+        placeholder="Your current codebase state goes here. Initially populated with the starter template."
+        minRows={10}
+        helperText="This will replace the {{EXISTING_CODE}} token in the prompt template."
+        required={true}
+      />
+
+      <Box sx={{ my: 4 }} />
+
+      {/* Moved the prompt type selection and accordion to the bottom */}
       <FormControl component="fieldset" sx={{ mb: 3 }}>
         <Typography variant="h6" gutterBottom>
           Choose Code Generation Type
@@ -145,18 +177,6 @@ const CodeGenPromptStep = () => {
           />
         </AccordionDetails>
       </Accordion>
-
-      <PromptInstructions />
-
-      <TextInput
-        label="Code Generation Response"
-        value={codeGenPromptOutput}
-        onChange={handleOutputChange}
-        placeholder="Paste the AI responses here..."
-        minRows={10}
-        //helperText="Paste the complete response from non-reasoning AI Model here."
-        required={true}
-      />
     </Box>
   );
 };

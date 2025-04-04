@@ -21,6 +21,7 @@ const initialState: WizardState = {
   plannerPromptOutput: "",
   codeGenPromptOutput: "",
   codeGenPromptType: "standard",
+  existingCode: "",
   aiApiKey: localStorage.getItem("aiApiKey"),
   aiEndpoint:
     localStorage.getItem("aiEndpoint") ||
@@ -42,6 +43,10 @@ const wizardSlice = createSlice({
     },
     setStarterTemplate: (state, action: PayloadAction<string>) => {
       state.starterTemplate = action.payload;
+      // Initialize existingCode with starterTemplate when it's first set
+      if (!state.existingCode) {
+        state.existingCode = action.payload;
+      }
     },
     setRequestPromptOutput: (state, action: PayloadAction<string>) => {
       state.requestPromptOutput = action.payload;
@@ -54,6 +59,9 @@ const wizardSlice = createSlice({
     },
     setCodeGenPromptOutput: (state, action: PayloadAction<string>) => {
       state.codeGenPromptOutput = action.payload;
+    },
+    setExistingCode: (state, action: PayloadAction<string>) => {
+      state.existingCode = action.payload;
     },
     setCodeGenPromptType: (state, action: PayloadAction<CodeGenPromptType>) => {
       state.codeGenPromptType = action.payload;
@@ -123,6 +131,7 @@ export const {
   setSpecPromptOutput,
   setPlannerPromptOutput,
   setCodeGenPromptOutput,
+  setExistingCode,
   setCodeGenPromptType,
   setAiApiKey,
   setAiEndpoint,

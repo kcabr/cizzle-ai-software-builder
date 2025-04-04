@@ -12,6 +12,10 @@ First, carefully review the following inputs:
 {{PROJECT_RULES}}
 </project_rules>
 
+<stack_documentation>
+{{STACK_DOCUMENTATION}}
+</stack_documentation>
+
 <technical_specification>
 {{TECHNICAL_SPECIFICATION}}
 </technical_specification>

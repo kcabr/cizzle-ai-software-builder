@@ -12,6 +12,10 @@ First, carefully review the following inputs:
 {{PROJECT_RULES}}
 </project_rules>
 
+<stack_documentation>
+{{STACK_DOCUMENTATION}}
+</stack_documentation>
+
 <technical_specification>
 {{TECHNICAL_SPECIFICATION}}
 </technical_specification>
@@ -21,7 +25,7 @@ First, carefully review the following inputs:
 </implementation_plan>
 
 <existing_code>
-{{YOUR_CODE}}
+{{EXISTING_CODE}}
 </existing_code>
 
 Your task is to:

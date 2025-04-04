@@ -14,6 +14,12 @@ Next, carefully review the project rules:
 {{PROJECT_RULES}}
 </project_rules>
 
+Next, carefully review the stack documentation:
+
+<stack_documentation>
+{{STACK_DOCUMENTATION}}
+</stack_documentation>
+
 Finally, carefully review the starter template:
 
 <starter_template>

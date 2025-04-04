@@ -26,6 +26,7 @@ export interface WizardState {
   plannerPromptOutput: string;
   codeGenPromptOutput: string;
   codeGenPromptType: CodeGenPromptType;
+  existingCode: string;
   aiApiKey: string | null;
   aiEndpoint: string | null;
 }

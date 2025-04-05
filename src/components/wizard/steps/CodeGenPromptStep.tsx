@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTemplateData } from "../../../hooks/useTemplateData";
 import { RootState } from "../../../store";
 import {
-  setCodeGenPromptOutput,
   setCodeGenPromptType,
   setExistingCode,
 } from "../../../store/wizardSlice";
@@ -36,12 +35,9 @@ import { CodeGenPromptType } from "../../../types";
  */
 const CodeGenPromptStep = () => {
   const dispatch = useDispatch();
-  const {
-    codeGenPromptOutput,
-    codeGenPromptType,
-    existingCode,
-    starterTemplate,
-  } = useSelector((state: RootState) => state.wizard);
+  const { codeGenPromptType, existingCode, starterTemplate } = useSelector(
+    (state: RootState) => state.wizard
+  );
   const templateData = useTemplateData();
 
   const [standardTemplate, setStandardTemplate] = useState("");
@@ -96,10 +92,6 @@ const CodeGenPromptStep = () => {
     dispatch(setCodeGenPromptType(event.target.value as CodeGenPromptType));
   };
 
-  const handleOutputChange = (value: string) => {
-    dispatch(setCodeGenPromptOutput(value));
-  };
-
   const handleExistingCodeChange = (value: string) => {
     dispatch(setExistingCode(value));
   };
@@ -114,21 +106,35 @@ const CodeGenPromptStep = () => {
 
   return (
     <Box>
-      {/* Existing Code text area at the top */}
-      <Typography variant="h6" gutterBottom>
-        Existing Code
-      </Typography>
-      <TextInput
-        label="Existing Code"
-        value={existingCode}
-        onChange={handleExistingCodeChange}
-        placeholder="Your current codebase state goes here. Initially populated with the starter template."
-        minRows={10}
-        helperText="This will replace the {{EXISTING_CODE}} token in the prompt template."
-        required={true}
-      />
+      {/* Existing Code section in accordion */}
+      <Accordion defaultExpanded={true} sx={{ mb: 2 }}>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="existing-code-content"
+          id="existing-code-header"
+        >
+          <PromptHeaderWithCopy
+            title="Existing Code"
+            contentToCopy={existingCode}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <TextInput
+            label="Existing Code"
+            value={existingCode}
+            onChange={handleExistingCodeChange}
+            placeholder="Your current codebase state goes here. Initially populated with the starter template."
+            minRows={10}
+            helperText="This will replace the {{EXISTING_CODE}} token in the prompt template."
+            required={true}
+          />
+        </AccordionDetails>
+      </Accordion>
 
       <Box sx={{ my: 4 }} />
+
+      {/* Prompt Instructions */}
+      <PromptInstructions />
 
       {/* Moved the prompt type selection and accordion to the bottom */}
       <FormControl component="fieldset" sx={{ mb: 3 }}>
@@ -173,7 +179,6 @@ const CodeGenPromptStep = () => {
               codeGenPromptType === "standard" ? "Standard" : "Advanced XML"
             })`}
             value={processedTemplate}
-            readOnly
           />
         </AccordionDetails>
       </Accordion>

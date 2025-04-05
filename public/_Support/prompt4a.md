@@ -12,9 +12,9 @@ First, carefully review the following inputs:
 {{PROJECT_RULES}}
 </project_rules>
 
-<stack_documentation>
-{{STACK_DOCUMENTATION}}
-</stack_documentation>
+<framework_documentation>
+{{FRAMEWORK_DOCUMENTATION}}
+</framework_documentation>
 
 <technical_specification>
 {{TECHNICAL_SPECIFICATION}}
@@ -36,12 +36,10 @@ Your task is to:
 
 The implementation plan is just a suggestion meant to provide a high-level overview of the objective. Use it to guide you, but you do not have to adhere to it strictly. Make sure to follow the given rules as you work along the lines of the plan.
 
-For EVERY file you modify or create, you MUST provide the COMPLETE file contents in the format above.
+Generate me a final powershell script that executes any commands (like for file cleanup, make folders / files) AND generates the exact content needed.
+This powershell script will be used to execute the steps on the destination system.
 
-Each file should be wrapped in a code block with its file path above it and a "Here's what I did and why":
-
-Here's what I did and why: [text here...]
-Filepath: src/components/Example.tsx
+For EVERY file you modify or create, you MUST provide the COMPLETE file contents in the format below.
 
 ```
 /**

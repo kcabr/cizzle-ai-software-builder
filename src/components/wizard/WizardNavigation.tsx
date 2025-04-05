@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 const STEP_LABELS: Record<WizardStep, string> = {
   idea: "Web App Idea",
   projectRules: "Project Rules",
+  frameworkDocs: "Framework Docs",
   starterTemplate: "Starter Template",
   requestPrompt: "Request Prompt",
   specPrompt: "Spec Prompt",
@@ -32,6 +33,7 @@ const STEP_LABELS: Record<WizardStep, string> = {
 const STEP_ORDER: WizardStep[] = [
   "idea",
   "projectRules",
+  "frameworkDocs",
   "starterTemplate",
   "requestPrompt",
   "specPrompt",
@@ -61,7 +63,6 @@ const WizardNavigation = ({ onNext, onPrevious }: WizardNavigationProps) => {
     requestPromptOutput,
     specPromptOutput,
     plannerPromptOutput,
-    codeGenPromptOutput,
     idea,
     projectRules,
     starterTemplate,

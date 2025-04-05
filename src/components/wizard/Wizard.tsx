@@ -6,6 +6,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import CodeGenPromptStep from "./steps/CodeGenPromptStep";
+import FrameworkDocsStep from "./steps/FrameworkDocsStep";
 import IdeaStep from "./steps/IdeaStep";
 import PlannerPromptStep from "./steps/PlannerPromptStep";
 import ProjectRulesStep from "./steps/ProjectRulesStep";
@@ -29,6 +30,8 @@ const Wizard = () => {
         return <IdeaStep />;
       case "projectRules":
         return <ProjectRulesStep />;
+      case "frameworkDocs":
+        return <FrameworkDocsStep />;
       case "starterTemplate":
         return <StarterTemplateStep />;
       case "requestPrompt":

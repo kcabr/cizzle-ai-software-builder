@@ -17,6 +17,7 @@ export const useTemplateData = (): TemplateData => {
     () => ({
       IDEA: wizardState.idea,
       PROJECT_RULES: wizardState.projectRules,
+      FRAMEWORK_DOCUMENTATION: wizardState.frameworkDocs,
       STARTER_TEMPLATE: wizardState.starterTemplate,
       PROJECT_REQUEST: wizardState.requestPromptOutput,
       TECHNICAL_SPECIFICATION: wizardState.specPromptOutput,
@@ -27,6 +28,7 @@ export const useTemplateData = (): TemplateData => {
     [
       wizardState.idea,
       wizardState.projectRules,
+      wizardState.frameworkDocs,
       wizardState.starterTemplate,
       wizardState.requestPromptOutput,
       wizardState.specPromptOutput,

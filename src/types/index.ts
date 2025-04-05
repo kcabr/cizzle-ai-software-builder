@@ -5,6 +5,7 @@
 export type WizardStep =
   | "idea"
   | "projectRules"
+  | "frameworkDocs"
   | "starterTemplate"
   | "requestPrompt"
   | "specPrompt"
@@ -19,6 +20,7 @@ export interface WizardState {
   idea: string;
   projectRules: string;
   projectRulesDefault: string | null;
+  frameworkDocs: string;
   starterTemplate: string;
   starterTemplateDefault: string | null;
   requestPromptOutput: string;

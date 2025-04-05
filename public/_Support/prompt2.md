@@ -16,9 +16,9 @@ Next, carefully review the project rules:
 
 Next, carefully review the stack documentation:
 
-<stack_documentation>
-{{STACK_DOCUMENTATION}}
-</stack_documentation>
+<framework_documentation>
+{{FRAMEWORK_DOCUMENTATION}}
+</framework_documentation>
 
 Finally, carefully review the starter template:
 

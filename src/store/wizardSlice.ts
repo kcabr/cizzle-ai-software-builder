@@ -11,6 +11,7 @@ const initialState: WizardState = {
   projectRulesDefault:
     //localStorage.getItem("projectRulesDefault") ||
     import.meta.env.VITE_DEFAULT_PROJECT_RULES_URL || "",
+  frameworkDocs: "",
   starterTemplate: "",
   starterTemplateDefault:
     localStorage.getItem("starterTemplateDefault") ||
@@ -41,11 +42,33 @@ const wizardSlice = createSlice({
     setProjectRules: (state, action: PayloadAction<string>) => {
       state.projectRules = action.payload;
     },
+    setProjectRulesDefault: (state, action: PayloadAction<string | null>) => {
+      state.projectRulesDefault = action.payload;
+      if (action.payload) {
+        localStorage.setItem("projectRulesDefault", action.payload);
+      } else {
+        localStorage.removeItem("projectRulesDefault");
+      }
+    },
+    setFrameworkDocs: (state, action: PayloadAction<string>) => {
+      state.frameworkDocs = action.payload;
+    },
     setStarterTemplate: (state, action: PayloadAction<string>) => {
       state.starterTemplate = action.payload;
       // Initialize existingCode with starterTemplate when it's first set
       if (!state.existingCode) {
         state.existingCode = action.payload;
+      }
+    },
+    setStarterTemplateDefault: (
+      state,
+      action: PayloadAction<string | null>
+    ) => {
+      state.starterTemplateDefault = action.payload;
+      if (action.payload) {
+        localStorage.setItem("starterTemplateDefault", action.payload);
+      } else {
+        localStorage.removeItem("starterTemplateDefault");
       }
     },
     setRequestPromptOutput: (state, action: PayloadAction<string>) => {
@@ -84,25 +107,6 @@ const wizardSlice = createSlice({
         state.aiEndpoint = "https://api.openai.com/v1/chat/completions";
       }
     },
-    setProjectRulesDefault: (state, action: PayloadAction<string | null>) => {
-      state.projectRulesDefault = action.payload;
-      if (action.payload) {
-        localStorage.setItem("projectRulesDefault", action.payload);
-      } else {
-        localStorage.removeItem("projectRulesDefault");
-      }
-    },
-    setStarterTemplateDefault: (
-      state,
-      action: PayloadAction<string | null>
-    ) => {
-      state.starterTemplateDefault = action.payload;
-      if (action.payload) {
-        localStorage.setItem("starterTemplateDefault", action.payload);
-      } else {
-        localStorage.removeItem("starterTemplateDefault");
-      }
-    },
     resetWizard: (state) => {
       // Keep the API key, endpoint, project rules default, and starter template default but reset everything else
       const aiApiKey = state.aiApiKey;
@@ -125,6 +129,7 @@ export const {
   setIdea,
   setProjectRules,
   setProjectRulesDefault,
+  setFrameworkDocs,
   setStarterTemplate,
   setStarterTemplateDefault,
   setRequestPromptOutput,

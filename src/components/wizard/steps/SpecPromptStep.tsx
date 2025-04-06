@@ -55,7 +55,17 @@ const SpecPromptStep = () => {
 
   useEffect(() => {
     if (template) {
-      setProcessedTemplate(replaceTokens(template, templateData));
+      const replacedTemplate = replaceTokens(template, templateData);
+      console.log(
+        "Count of <project_rules> in template:",
+        template.split("<project_rules>").length - 1
+      );
+
+      console.log(
+        "Count of <project_rules> in replacedTemplate:",
+        replacedTemplate.split("<project_rules>").length - 1
+      );
+      setProcessedTemplate(replacedTemplate);
     }
   }, [template, templateData]);
 

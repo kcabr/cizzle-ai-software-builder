@@ -10,8 +10,7 @@ export type WizardStep =
   | "requestPrompt"
   | "specPrompt"
   | "plannerPrompt"
-  | "codeGenPrompt"
-  | "reviewPrompt";
+  | "codeGenPrompt";
 
 export type CodeGenPromptType = "standard" | "advanced";
 

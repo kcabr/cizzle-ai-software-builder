@@ -16,7 +16,6 @@ const STEP_ORDER: WizardStep[] = [
   "specPrompt",
   "plannerPrompt",
   "codeGenPrompt",
-  "reviewPrompt",
 ];
 
 /**

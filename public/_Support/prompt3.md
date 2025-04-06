@@ -28,22 +28,23 @@ After reviewing these inputs, your task is to create a comprehensive, detailed p
 
 Before creating the final plan, analyze the inputs and plan your approach. Wrap your thought process in <brainstorming> tags.
 
-Break down the development process into small, manageable steps that can be executed sequentially by a code generation AI.
+Break down the development process into AT MOST 15 TOTAL STEPS that can be executed sequentially by a code generation AI. Create larger, more comprehensive steps that may contain multiple related tasks rather than many small steps.
 
-Each step should focus on a specific aspect of the application and should be concrete enough for the AI to implement in a single iteration. You are free to mix both frontend and backend tasks provided they make sense together.
+Each step should focus on a cohesive aspect of the application and should be concrete enough for the AI to implement in a single iteration. You are free to mix both frontend and backend tasks provided they make logical sense together.
 
 When creating your plan, follow these guidelines:
 
 1. Start with the core project structure and essential configurations.
-2. Progress through database schema, server actions, and API routes.
-3. Move on to shared components and layouts.
-4. Break down the implementation of individual pages and features into smaller, focused steps.
-5. Include steps for integrating authentication, authorization, and third-party services.
-6. Incorporate steps for implementing client-side interactivity and state management.
-7. Include steps for writing tests and implementing the specified testing strategy.
-8. Ensure that each step builds upon the previous ones in a logical manner.
+2. Group related tasks together into larger, meaningful steps.
+3. Progress through database schema, server actions, and API routes.
+4. Include shared components and layouts together where possible.
+5. Group related pages and features into comprehensive implementation steps.
+6. Combine authentication, authorization, and third-party service integrations logically.
+7. Bundle client-side interactivity and state management where appropriate.
+8. Include testing implementation within relevant feature steps when possible.
+9. Ensure that each step builds upon the previous ones in a logical manner.
 
-Present your plan using the following markdown-based format. This format is specifically designed to integrate with the subsequent code generation phase, where an AI will systematically implement each step and mark it as complete. Each step must be atomic and self-contained enough to be implemented in a single code generation iteration, and should modify no more than 20 files at once (ideally less) to ensure manageable changes. Make sure to include any instructions the user should follow for things you can't do like installing libraries, updating configurations on services, etc (Ex: Running a SQL script for storage bucket RLS policies in the Supabase editor).
+Present your plan using the following markdown-based format. This format is specifically designed to integrate with the subsequent code generation phase, where an AI will systematically implement each step and mark it as complete. Each step should encompass a significant portion of functionality while still being manageable for implementation. Make sure to include any instructions the user should follow for things you can't do like installing libraries, updating configurations on services, etc (Ex: Running a SQL script for storage bucket RLS policies in the Supabase editor).
 
 ```md
 # Implementation Plan

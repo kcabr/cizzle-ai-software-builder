@@ -75,7 +75,7 @@ Guidelines for code changes:
  * - Important implementation detail 2
  */
 
-BEGIN WRITING FULL FILE CODE
+// BEGIN WRITING FULL FILE CODE
 // Complete implementation with extensive inline comments & documentation...
 ]]></file_code>
     </file>

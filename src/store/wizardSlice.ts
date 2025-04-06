@@ -9,7 +9,6 @@ const initialState: WizardState = {
   idea: "",
   projectRules: "",
   projectRulesDefault:
-    //localStorage.getItem("projectRulesDefault") ||
     import.meta.env.VITE_DEFAULT_PROJECT_RULES_URL || "",
   frameworkDocs: "",
   starterTemplate: "",
@@ -121,6 +120,50 @@ const wizardSlice = createSlice({
         starterTemplateDefault,
       });
     },
+    // New reducers for local storage functionality
+    loadSavedState: (state) => {
+      try {
+        const savedState = localStorage.getItem("wizardState");
+        if (savedState) {
+          const parsedState = JSON.parse(savedState);
+          // Maintain sensible defaults for missing values
+          return {
+            ...parsedState,
+            aiApiKey: parsedState.aiApiKey || localStorage.getItem("aiApiKey"),
+            aiEndpoint: parsedState.aiEndpoint || 
+              localStorage.getItem("aiEndpoint") || 
+              "https://api.openai.com/v1/chat/completions",
+            projectRulesDefault: parsedState.projectRulesDefault || 
+              import.meta.env.VITE_DEFAULT_PROJECT_RULES_URL || "",
+            starterTemplateDefault: parsedState.starterTemplateDefault || 
+              localStorage.getItem("starterTemplateDefault") || 
+              import.meta.env.VITE_DEFAULT_STARTER_TEMPLATE_URL || "",
+          };
+        }
+      } catch (error) {
+        console.error("Error loading state from localStorage:", error);
+      }
+      return state;
+    },
+    resetWizardAndSavedState: (state) => {
+      // Clear localStorage except for API key and endpoint
+      localStorage.removeItem("wizardState");
+      
+      // Keep the API key, endpoint, project rules default, and starter template default but reset everything else
+      const aiApiKey = state.aiApiKey;
+      const aiEndpoint = state.aiEndpoint;
+      const projectRulesDefault = state.projectRulesDefault;
+      const starterTemplateDefault = state.starterTemplateDefault;
+      
+      // Reset to initial state
+      Object.assign(state, {
+        ...initialState,
+        aiApiKey,
+        aiEndpoint,
+        projectRulesDefault,
+        starterTemplateDefault,
+      });
+    },
   },
 });
 
@@ -141,6 +184,8 @@ export const {
   setAiApiKey,
   setAiEndpoint,
   resetWizard,
+  loadSavedState,
+  resetWizardAndSavedState,
 } = wizardSlice.actions;
 
 export default wizardSlice.reducer;

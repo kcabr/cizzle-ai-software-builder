@@ -39,6 +39,8 @@ The implementation plan is just a suggestion meant to provide a high-level overv
 Generate me a final powershell script that executes any commands (like for file cleanup, make folders / files) AND generates the exact content needed.
 This powershell script will be used to execute the steps on the destination system.
 
+IMPORTANT: When generating PowerShell scripts, ensure all strings are properly escaped to avoid any issues with special characters (use escape sequences like backticks for special characters, wrap variables in quotation marks, and escape quotation marks within strings).
+
 For EVERY file you modify or create, you MUST provide the COMPLETE file contents in the format below.
 
 ```
@@ -60,7 +62,7 @@ For EVERY file you modify or create, you MUST provide the COMPLETE file contents
  * - Important implementation detail 2
  */
 
-BEGIN WRITING FILE CODE
+// BEGIN WRITING FILE CODE
 // Complete implementation with extensive inline comments & documentation...
 ```
 

@@ -15,6 +15,7 @@ import { useWizardNavigation } from "../../hooks/useWizardNavigation";
 import { WizardStep } from "../../types";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
+import ResetDataButton from "../common/ResetDataButton";
 
 // Define step labels for the stepper
 const STEP_LABELS: Record<WizardStep, string> = {
@@ -26,7 +27,6 @@ const STEP_LABELS: Record<WizardStep, string> = {
   specPrompt: "Spec Prompt",
   plannerPrompt: "Planner Prompt",
   codeGenPrompt: "Code Gen Prompt ♻️",
-  reviewPrompt: "Review Prompt",
 };
 
 // Define step order for the stepper
@@ -39,7 +39,6 @@ const STEP_ORDER: WizardStep[] = [
   "specPrompt",
   "plannerPrompt",
   "codeGenPrompt",
-  "reviewPrompt",
 ];
 
 interface WizardNavigationProps {
@@ -93,11 +92,24 @@ const WizardNavigation = ({ onNext, onPrevious }: WizardNavigationProps) => {
 
   return (
     <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 4 }}>
-      <Typography variant="h6" gutterBottom>
-        Step {currentStepIndex + 1}: {STEP_LABELS[currentStep]}
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6">
+          Step {currentStepIndex + 1}: {STEP_LABELS[currentStep]}
+        </Typography>
+        <ResetDataButton />
+      </Box>
 
-      <Stepper activeStep={currentStepIndex} alternativeLabel sx={{ mb: 3 }}>
+      <Stepper
+        activeStep={currentStepIndex}
+        alternativeLabel
+        sx={{ mb: 3, mt: 2 }}
+      >
         {STEP_ORDER.map((step) => (
           <Step key={step}>
             <StepLabel>{STEP_LABELS[step]}</StepLabel>

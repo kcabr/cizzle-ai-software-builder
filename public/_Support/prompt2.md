@@ -155,14 +155,11 @@ For each action:
 
 ## 11. PostHog Analytics
 
-- Analytics strategy
-- Event tracking implementation
-- Custom property definitions
+NONE - Will be implemented seperately
 
 ## 12. Testing
 
-- Unit tests with Jest (example test cases)
-- e2e tests with Playwright (key user flows to test)
+NONE - Will be implemented seperately
 ```
 
 Ensure that your specification is extremely detailed, providing specific implementation guidance wherever possible. Include concrete examples for complex features and clearly define interfaces between components.

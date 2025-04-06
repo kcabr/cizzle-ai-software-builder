@@ -11,7 +11,6 @@ import IdeaStep from "./steps/IdeaStep";
 import PlannerPromptStep from "./steps/PlannerPromptStep";
 import ProjectRulesStep from "./steps/ProjectRulesStep";
 import RequestPromptStep from "./steps/RequestPromptStep";
-import ReviewPromptStep from "./steps/ReviewPromptStep";
 import SpecPromptStep from "./steps/SpecPromptStep";
 import StarterTemplateStep from "./steps/StarterTemplateStep";
 import WizardNavigation from "./WizardNavigation";
@@ -42,8 +41,6 @@ const Wizard = () => {
         return <PlannerPromptStep />;
       case "codeGenPrompt":
         return <CodeGenPromptStep />;
-      case "reviewPrompt":
-        return <ReviewPromptStep />;
       default:
         return <Typography>Unknown step</Typography>;
     }

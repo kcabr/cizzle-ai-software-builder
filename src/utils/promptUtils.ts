@@ -1,8 +1,8 @@
 /**
  * Utility functions for working with prompts
  */
-import { encode } from 'gpt-tokenizer';
-import { PromptTemplate, TemplateData } from '../types';
+import { encode } from "gpt-tokenizer";
+import { PromptTemplate, TemplateData } from "../types";
 
 /**
  * Calculate the number of tokens in a text using GPT tokenizer
@@ -21,13 +21,27 @@ export const calculateTokens = (text: string): number => {
  * @returns The template with all tokens replaced with their values
  */
 export const replaceTokens = (template: string, data: TemplateData): string => {
-  let result = template;
-  
+  // Instead of modifying the template iteratively which can cause cascading replacements,
+  // we'll collect all the replacements first and then apply them all at once
+
+  // Create a map of token -> replacement
+  const replacements = new Map();
+
+  // Collect all tokens and their replacements
   Object.entries(data).forEach(([key, value]) => {
     const token = `{{${key}}}`;
-    result = result.replace(new RegExp(token, 'g'), value || '');
+    replacements.set(token, value || "");
   });
-  
+
+  // Find all potential token matches in the template
+  const tokenRegex = /{{([A-Z_]+)}}/g;
+  let result = template;
+
+  // Apply replacements in a single pass
+  result = result.replace(tokenRegex, (match) => {
+    return replacements.has(match) ? replacements.get(match) : match;
+  });
+
   return result;
 };
 
@@ -36,7 +50,9 @@ export const replaceTokens = (template: string, data: TemplateData): string => {
  * @param fileName The name of the template file
  * @returns Promise resolving to the template content
  */
-export const loadPromptTemplate = async (fileName: string): Promise<PromptTemplate> => {
+export const loadPromptTemplate = async (
+  fileName: string
+): Promise<PromptTemplate> => {
   try {
     const response = await fetch(`/_Support/${fileName}`);
     if (!response.ok) {
@@ -45,7 +61,7 @@ export const loadPromptTemplate = async (fileName: string): Promise<PromptTempla
     const content = await response.text();
     return { content, fileName };
   } catch (error) {
-    console.error('Error loading template:', error);
+    console.error("Error loading template:", error);
     throw error;
   }
 };

@@ -8,13 +8,14 @@ import {
   AccordionSummary,
   Alert,
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { ExpandMore, FormatListBulleted } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTemplateData } from "../../../hooks/useTemplateData";
@@ -26,8 +27,8 @@ import {
 import { loadPromptTemplate, replaceTokens } from "../../../utils/promptUtils";
 import PromptOutput from "../../common/PromptOutput";
 import TextInput from "../../common/TextInput";
-import PromptInstructions from "../../common/PromptInstructions";
 import PromptHeaderWithCopy from "../../common/PromptHeaderWithCopy";
+import PlannerTaskModal from "../../common/PlannerTaskModal";
 import { CodeGenPromptType } from "../../../types";
 
 /**
@@ -35,9 +36,12 @@ import { CodeGenPromptType } from "../../../types";
  */
 const CodeGenPromptStep = () => {
   const dispatch = useDispatch();
-  const { codeGenPromptType, existingCode, starterTemplate } = useSelector(
-    (state: RootState) => state.wizard
-  );
+  const { 
+    codeGenPromptType, 
+    existingCode, 
+    starterTemplate,
+    plannerPromptOutput 
+  } = useSelector((state: RootState) => state.wizard);
   const templateData = useTemplateData();
 
   const [standardTemplate, setStandardTemplate] = useState("");
@@ -45,6 +49,7 @@ const CodeGenPromptStep = () => {
   const [processedTemplate, setProcessedTemplate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPlannerModalOpen, setIsPlannerModalOpen] = useState(false);
 
   // Initialize existingCode with starterTemplate if it's empty
   useEffect(() => {
@@ -96,6 +101,14 @@ const CodeGenPromptStep = () => {
     dispatch(setExistingCode(value));
   };
 
+  const openPlannerModal = () => {
+    setIsPlannerModalOpen(true);
+  };
+
+  const closePlannerModal = () => {
+    setIsPlannerModalOpen(false);
+  };
+
   if (loading) {
     return <Typography>Loading templates...</Typography>;
   }
@@ -106,6 +119,25 @@ const CodeGenPromptStep = () => {
 
   return (
     <Box>
+      {/* Task Selection Button */}
+      {plannerPromptOutput && (
+        <Box sx={{ mb: 3 }}>
+          <Button
+            variant="outlined"
+            startIcon={<FormatListBulleted />}
+            onClick={openPlannerModal}
+            fullWidth
+          >
+            Manage Planner Tasks
+          </Button>
+          <PlannerTaskModal
+            open={isPlannerModalOpen}
+            onClose={closePlannerModal}
+            plannerText={plannerPromptOutput}
+          />
+        </Box>
+      )}
+
       {/* Existing Code section in accordion */}
       <Accordion defaultExpanded={true} sx={{ mb: 2 }}>
         <AccordionSummary
@@ -113,10 +145,7 @@ const CodeGenPromptStep = () => {
           aria-controls="existing-code-content"
           id="existing-code-header"
         >
-          <PromptHeaderWithCopy
-            title="Existing Code"
-            contentToCopy={existingCode}
-          />
+          <Typography variant="h6">Existing Code</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <TextInput
@@ -132,9 +161,6 @@ const CodeGenPromptStep = () => {
       </Accordion>
 
       <Box sx={{ my: 4 }} />
-
-      {/* Prompt Instructions */}
-      <PromptInstructions />
 
       {/* Moved the prompt type selection and accordion to the bottom */}
       <FormControl component="fieldset" sx={{ mb: 3 }}>
@@ -175,9 +201,6 @@ const CodeGenPromptStep = () => {
         </AccordionSummary>
         <AccordionDetails>
           <PromptOutput
-            title={`Code Generation Prompt (${
-              codeGenPromptType === "standard" ? "Standard" : "Advanced XML"
-            })`}
             value={processedTemplate}
           />
         </AccordionDetails>

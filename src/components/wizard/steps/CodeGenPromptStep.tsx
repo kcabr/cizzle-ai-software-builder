@@ -36,11 +36,11 @@ import { CodeGenPromptType } from "../../../types";
  */
 const CodeGenPromptStep = () => {
   const dispatch = useDispatch();
-  const { 
-    codeGenPromptType, 
-    existingCode, 
+  const {
+    codeGenPromptType,
+    existingCode,
     starterTemplate,
-    plannerPromptOutput 
+    plannerPromptOutput,
   } = useSelector((state: RootState) => state.wizard);
   const templateData = useTemplateData();
 
@@ -200,9 +200,7 @@ const CodeGenPromptStep = () => {
           />
         </AccordionSummary>
         <AccordionDetails>
-          <PromptOutput
-            value={processedTemplate}
-          />
+          <PromptOutput value={processedTemplate} />
         </AccordionDetails>
       </Accordion>
     </Box>

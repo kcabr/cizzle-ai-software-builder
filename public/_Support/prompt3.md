@@ -34,7 +34,8 @@ Each step should focus on a cohesive aspect of the application and should be con
 
 When creating your plan, follow these guidelines:
 
-1. Start with the core project structure and essential configurations.
+1. This first step will be fed into an AI coding agent. Start with the core project structure and essential configurations. Be sure to clean up the demo pages from the starter template that are not relevant. Please do not remove any authenticaion or payments logic from the starter template unless explicitly told to do so. These parts of the system are already working in the starter template and should not be altered. Put all of this in the very first step. I will feed this first step into a coding agent and it will do everythihg.
+
 2. Group related tasks together into larger, meaningful steps.
 3. Progress through database schema, server actions, and API routes.
 4. Include shared components and layouts together where possible.

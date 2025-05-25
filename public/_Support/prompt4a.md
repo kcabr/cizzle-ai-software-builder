@@ -32,39 +32,96 @@ Your task is to:
 
 1. Identify the next incomplete step from the implementation plan (marked with `- [ ]`)
 2. Generate the necessary code for all files specified in that step
-3. Return the generated code
+3. Return the generated code block
 
-The implementation plan is just a suggestion meant to provide a high-level overview of the objective. Use it to guide you, but you do not have to adhere to it strictly. Make sure to follow the given rules as you work along the lines of the plan.
+When you to create files for a project, please output ALL files in a SINGLE code block using the following format:
 
-Generate me a final powershell script that executes any commands (like for file cleanup, make folders / files) AND generates the exact content needed.
-This powershell script will be used to execute the steps on the destination system.
+1. Start each file with a comment showing the complete filepath
+2. Include the full file content immediately after the filepath comment
+3. End each file with exactly 30 hash symbols (##############################)
+4. Begin the next file immediately after the separator. Place newline at the begining a
+5. Do not add any explanations or text inside the code block
 
-IMPORTANT: When generating PowerShell scripts, ensure all strings are properly escaped to avoid any issues with special characters (use escape sequences like backticks for special characters, wrap variables in quotation marks, and escape quotation marks within strings).
-
-For EVERY file you modify or create, you MUST provide the COMPLETE file contents in the format below.
+Each code file should follow this documentation template where appropriate. Only add this to Typescript/Javascript/C# files:
 
 ```
-/**
- * @description
- * This component handles [specific functionality].
- * It is responsible for [specific responsibilities].
- *
- * Key features:
- * - Feature 1: Description
- * - Feature 2: Description
- *
- * @dependencies
- * - DependencyA: Used for X
- * - DependencyB: Used for Y
- *
- * @notes
- * - Important implementation detail 1
- * - Important implementation detail 2
- */
+/*
+
+- @description
+- This file handles [specific functionality].
+- It is responsible for [specific responsibilities].
+-
+- Key features:
+- - Feature 1: Description
+- - Feature 2: Description
+-
+- @dependencies
+- - DependencyA: Used for X
+- - DependencyB: Used for Y
+-
+- @notes
+- - Important implementation detail 1
+- - Important implementation detail 2
+*/
 
 // BEGIN WRITING FILE CODE
 // Complete implementation with extensive inline comments & documentation...
+
 ```
+
+Example of the correct final code block text output format (this works for any file type):
+
+```
+// project/README.md
+# Project Title
+
+Project description goes here.
+
+## Installation
+Installation instructions here.
+
+## Usage
+Usage instructions here.
+##############################
+// project/config.json
+{
+  "name": "project-name",
+  "version": "1.0.0",
+  "description": "Project description"
+}
+##############################
+// project/src/main.py
+/**
+ * @description
+ * This file handles the main application logic.
+ * It is responsible for program initialization.
+ *
+ * Key features:
+ * - Feature 1: Command processing
+ * - Feature 2: Data management
+ *
+ * @dependencies
+ * - os: Used for file operations
+ * - json: Used for config parsing
+ *
+ * @notes
+ * - Entry point for the application
+ * - Handles command line arguments
+ */
+
+// BEGIN WRITING FILE CODE
+import os
+import json
+
+def main():
+    print("Application started")
+
+if __name__ == "__main__":
+    main()
+##############################
+```
+
+This format allows me to easily separate and save each file. Please include all files needed for the requested functionality.
 
 Documentation requirements:
 
@@ -89,7 +146,7 @@ Guidelines:
 
 Begin by identifying the next incomplete step from the plan, then generate the required code (with complete file contents and documentation).
 
-Above each file, include a "Here's what I did and why" explanation of what you did for that file.
+Remember to output all code in one output block with each file separated by 30 #!
 
 Then end with "STEP X COMPLETE. Here's what I did and why:" followed by an explanation of what you did and then a "USER INSTRUCTIONS: Please do the following:" followed by manual instructions for the user for things you can't do like installing libraries, updating configurations on services, etc.
 
